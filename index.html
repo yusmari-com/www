@@ -1,12 +1,117 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yusmari.com</title>
+    <title>Yusmari.com/title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Ubuntu', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .theme-switch {
+            background: #555;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .theme-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-switch.dark::after {
+            transform: translateX(30px);
+        }
+
+        .theme-switch.dark {
+            background: #007bff;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body>
-    <h1>yusmari.com</h1>
-    <p>¿Hasta dónde deseas llegar hoy?</p>
+<body class="light-mode">
+    <div class="container">
+        <h1>Hello World!</h1>
+        <div class="theme-switch" id="themeSwitch" role="button" tabindex="0" aria-label="Cambiar tema"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.querySelector('h1');
+            const themeSwitch = document.getElementById('themeSwitch');
+            const body = document.body;
+
+            // Animación del título al hacer clic
+            title.addEventListener('click', () => {
+                title.style.animation = 'none';
+                title.offsetHeight; // Trigger reflow
+                title.style.animation = 'fadeIn 1s ease forwards';
+            });
+
+            // Cambio de tema
+            themeSwitch.addEventListener('click', () => {
+                body.classList.toggle('light-mode');
+                body.classList.toggle('dark-mode');
+                themeSwitch.classList.toggle('dark');
+            });
+
+            // Soporte para teclado
+            themeSwitch.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    themeSwitch.click();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
